@@ -124,3 +124,7 @@ header h1 {
     width: 100%;
   }
 }
+
+.edit-mode {
+  color: #ccc;
+}
