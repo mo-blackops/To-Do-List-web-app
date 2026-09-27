@@ -1,4 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;700&display=swap');
+
+/*
+  ─────────────────────────────────────────────
+  Hollow Knight Theme — Hallownest To-Do List
+  Palette:
+    Void black      #0b0e13
+    Dark stone      #141822 / #1a202c
+    Pale soul       #cfe8ff
+    Soul glow       #5fd4f6
+    Old bone        #d8cfc0
+    Aged silver     #8a93a6
+  ─────────────────────────────────────────────
+*/
+
+:root {
+  --void: #0b0e13;
+  --stone: #141822;
+  --stone-light: #1a202c;
+  --soul: #5fd4f6;
+  --soul-pale: #cfe8ff;
+  --bone: #d8cfc0;
+  --silver: #8a93a6;
+  --danger: #e05656;
+}
 
 *,
 *::before,
@@ -9,12 +33,44 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Cinzel', 'Poppins', serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
-  background-color: #f5f5f5;
+  color: var(--bone);
+  background-color: var(--void);
   background: url('images/wallpaper.jpg') no-repeat center center / cover fixed;
+  min-height: 100vh;
+}
+
+/* Atmosphere: deep void gradient + subtle soul-lit fog, drawn over the wallpaper */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      ellipse at 50% 30%,
+      rgba(95, 212, 246, 0.08) 0%,
+      rgba(95, 212, 246, 0.02) 35%,
+      rgba(11, 14, 19, 0.55) 70%,
+      rgba(11, 14, 19, 0.92) 100%
+    ),
+    linear-gradient(to bottom, rgba(11, 14, 19, 0.72), rgba(11, 14, 19, 0.88));
+}
+
+/* Container */
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 25px;
+  background: rgba(20, 24, 34, 0.82);
+  border: 1px solid rgba(138, 147, 166, 0.35);
+  border-radius: 4px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(95, 212, 246, 0.06),
+    0 20px 50px rgba(0, 0, 0, 0.6);
 }
 
 header {
@@ -22,17 +78,25 @@ header {
   justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
+  border-bottom: 1px solid rgba(138, 147, 166, 0.25);
+  padding-bottom: 15px;
 }
 
 header h1 {
-  font-weight: 300;
+  font-weight: 600;
+  font-size: 1.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
   margin-left: 10px;
+  color: var(--soul-pale);
+  text-shadow: 0 0 12px rgba(95, 212, 246, 0.45);
 }
 
-.container {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
+header img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(95, 212, 246, 0.6));
+  opacity: 0.9;
 }
 
 /* Form & Input */
@@ -41,9 +105,26 @@ header h1 {
   font-size: 18px;
   margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  color: var(--soul-pale);
+  font-family: inherit;
+  background: rgba(11, 14, 19, 0.7);
+  border: 1px solid rgba(138, 147, 166, 0.35);
+  border-radius: 3px;
   outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.form-input::placeholder {
+  color: var(--silver);
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+.form-input:focus {
+  border-color: var(--soul);
+  box-shadow: 0 0 12px rgba(95, 212, 246, 0.25);
 }
 
 .form-input-filter {
@@ -53,32 +134,65 @@ header h1 {
   margin-bottom: 20px;
   padding: 10px;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid rgba(138, 147, 166, 0.35);
+  color: var(--soul-pale);
+  font-family: inherit;
   background: transparent;
   outline: none;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.form-input-filter::placeholder {
+  color: var(--silver);
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
+
+.form-input-filter:focus {
+  border-bottom-color: var(--soul);
+  box-shadow: 0 6px 14px -8px rgba(95, 212, 246, 0.35);
 }
 
 /* Buttons */
 .btn {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
+  background-color: rgba(26, 32, 44, 0.9);
+  color: var(--soul-pale);
+  border: 1px solid var(--soul);
+  border-radius: 3px;
   padding: 10px 20px;
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 1px;
   cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
 }
 
 .btn:hover {
-  background-color: #444;
+  background-color: rgba(95, 212, 246, 0.12);
+  box-shadow: 0 0 15px rgba(95, 212, 246, 0.3);
+  color: #ffffff;
 }
 
 .btn-link {
   font-size: 16px;
   background-color: transparent;
-  color: #333;
+  color: var(--silver);
   border: none;
   padding: 0;
   cursor: pointer;
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.btn-link:hover {
+  color: var(--soul);
+  text-shadow: 0 0 8px rgba(95, 212, 246, 0.5);
 }
 
 .btn-clear {
@@ -86,20 +200,34 @@ header h1 {
   width: 100%;
   font-size: 16px;
   background-color: transparent;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  color: var(--silver);
+  border: 1px solid rgba(138, 147, 166, 0.4);
+  border-radius: 3px;
   padding: 10px 20px;
+  font-family: inherit;
+  letter-spacing: 1px;
   cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .btn-clear:hover {
-  background-color: #ff0000;
-  color: #fff;
+  background-color: rgba(224, 86, 86, 0.12);
+  color: var(--danger);
+  border-color: var(--danger);
+  box-shadow: 0 0 14px rgba(224, 86, 86, 0.3);
 }
 
 .text-red {
-  color: red;
+  color: var(--danger);
+}
+
+.text-red:hover {
+  color: #ff8080;
+  text-shadow: 0 0 8px rgba(224, 86, 86, 0.6);
 }
 
 /* Items */
@@ -113,12 +241,26 @@ header h1 {
 .items li {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 45%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  background: rgba(11, 14, 19, 0.6);
+  border: 1px solid rgba(138, 147, 166, 0.3);
+  border-radius: 3px;
   padding: 10px 15px;
   margin: 0 5px 20px;
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--bone);
+  letter-spacing: 0.5px;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.items li:hover {
+  border-color: rgba(95, 212, 246, 0.5);
+  box-shadow: 0 0 12px rgba(95, 212, 246, 0.15);
+  transform: translateY(-2px);
 }
 
 @media (max-width: 500px) {
@@ -128,5 +270,36 @@ header h1 {
 }
 
 .edit-mode {
-  color: #ccc;
+  color: var(--soul);
+  border-color: var(--soul) !important;
+  box-shadow: 0 0 14px rgba(95, 212, 246, 0.35);
+}
+
+/* Soul-glow caret & selection */
+::selection {
+  background: rgba(95, 212, 246, 0.3);
+  color: #ffffff;
+}
+
+input {
+  caret-color: var(--soul);
+}
+
+/* Scrollbar, styled like carved stone */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--stone-light);
+  border-radius: 5px;
+  border: 1px solid rgba(138, 147, 166, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--silver);
 }

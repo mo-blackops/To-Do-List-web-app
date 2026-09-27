@@ -120,7 +120,7 @@ function setItemToEdit(item) {
 
   item.classList.add('edit-mode');
   formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
-  formBtn.style.backgroundColor = '#228B22';
+  formBtn.style.backgroundColor = 'rgba(95, 212, 246, 0.15)';
   itemInput.value = item.textContent;
 }
 
@@ -185,7 +185,7 @@ function checkUI() {
   }
 
   formBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Item';
-  formBtn.style.backgroundColor = '#333';
+  formBtn.style.backgroundColor = '';
 
   isEditMode = false;
 }
