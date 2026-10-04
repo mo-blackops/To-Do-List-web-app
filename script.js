@@ -4,6 +4,8 @@ const itemList = document.getElementById('item-list');
 const clearBtn = document.getElementById('clear');
 const itemFilter = document.getElementById('filter');
 const formBtn = itemForm.querySelector('button');
+const audio = document.getElementById('myAudio');
+const toggleBtn = document.getElementById('toggleBtn');
 let isEditMode = false;
 
 function displayItems() {
@@ -196,6 +198,43 @@ function init() {
   clearBtn.addEventListener('click', clearItems);
   itemFilter.addEventListener('input', filterItems);
   document.addEventListener('DOMContentLoaded', displayItems);
+  // Attempt to start audio on page load
+  // 1. Toggle play/pause audio on button click
+
+  // audio.volume = 0.3;
+
+  toggleBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => {
+          toggleBtn.textContent = '⏸ Pause Audio';
+        })
+        .catch((err) => console.log('Autoplay blocked:', err));
+    } else {
+      audio.pause();
+      toggleBtn.textContent = '▶ Play Audio';
+    }
+  });
+
+  // 2. Attempt to play audio on first user interaction anywhere on the page
+  const startAudioOnFirstInteraction = () => {
+    if (audio.paused) {
+      audio.muted = false;
+      audio
+        .play()
+        .then(() => {
+          toggleBtn.textContent = '⏸ Pause Audio';
+        })
+        .catch((err) => console.log('Autoplay blocked:', err));
+    }
+    // Remove event listeners after the first interaction
+    window.removeEventListener('click', startAudioOnFirstInteraction);
+    window.removeEventListener('keydown', startAudioOnFirstInteraction);
+  };
+
+  window.addEventListener('click', startAudioOnFirstInteraction);
+  window.addEventListener('keydown', startAudioOnFirstInteraction);
 
   checkUI();
 }
