@@ -2,6 +2,10 @@
 
 A clean, interactive web application for managing your daily tasks with real-time filtering, local storage persistence, edit functionality, and dynamic UI updates.
 
+[🔗 Live Demo](https://to-do-list-web-app-pied.vercel.app/)
+
+![To Do List Screenshot](images/screenshot.png)
+
 ## 🚀 Features
 
 - **Add & Edit Tasks:** Add new tasks or click existing ones to update them.

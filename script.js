@@ -125,15 +125,13 @@ function setItemToEdit(item) {
 }
 
 function removeItem(item) {
-  if (confirm('Are you sure?')) {
-    // Remove item from DOM
-    item.remove();
+  // Remove item from DOM
+  item.remove();
 
-    // Remove item from storage
-    removeItemFromStorage(item.textContent);
+  // Remove item from storage
+  removeItemFromStorage(item.textContent);
 
-    checkUI();
-  }
+  checkUI();
 }
 
 function removeItemFromStorage(item) {
