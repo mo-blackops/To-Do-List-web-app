@@ -38,8 +38,13 @@ body {
   line-height: 1.5;
   color: var(--bone);
   background-color: var(--void);
-  background: url('images/wallpaper.jpg') no-repeat center center / cover fixed;
+  background-image: url('images/wallpaper.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: fixed;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* Atmosphere: deep void gradient + subtle soul-lit fog, drawn over the wallpaper */
@@ -266,6 +271,91 @@ header img {
 @media (max-width: 500px) {
   .items li {
     width: 100%;
+  }
+}
+
+/* ── Responsive background ───────────────────────────────── */
+/* `fixed` attachment is unsupported/buggy on iOS & many mobile
+   browsers (image jumps, zooms, or disappears) — fall back to scroll */
+@media (max-width: 1024px), (hover: none) and (pointer: coarse) {
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
+}
+
+/* Large screens: keep the art crisp and centered behind the card */
+@media (min-width: 1400px) {
+  body {
+    background-size: cover;
+  }
+}
+
+/* ── Mobile layout ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+
+  .container {
+    max-width: 100%;
+    margin: 16px auto;
+    padding: 18px 16px;
+    border-radius: 0;
+  }
+
+  header {
+    justify-content: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  header h1 {
+    font-size: 1.35rem;
+    letter-spacing: 2px;
+    margin-left: 8px;
+  }
+
+  header img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .form-input,
+  .form-input-filter {
+    font-size: 16px; /* prevents iOS zoom-on-focus */
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px 20px;
+  }
+
+  .btn:hover {
+    background-color: rgba(95, 212, 246, 0.12);
+  }
+
+  .items li {
+    width: 100%;
+    margin: 0 0 12px;
+    padding: 12px 15px;
+  }
+
+  .btn-clear {
+    padding: 12px 20px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .container {
+    margin: 10px auto;
+    padding: 14px 12px;
+  }
+
+  header h1 {
+    font-size: 1.15rem;
+    letter-spacing: 1.5px;
   }
 }
 
