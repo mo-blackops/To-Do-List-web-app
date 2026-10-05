@@ -101,11 +101,24 @@ function getItemsFromStorage() {
 }
 
 function onClickItem(e) {
-  if (e.target.parentElement.classList.contains('remove-item')) {
-    removeItem(e.target.parentElement.parentElement);
-  } else {
-    setItemToEdit(e.target);
+  // 1. Check if the clicked element is either the delete icon or the remove button itself
+  if (
+    e.target.parentElement.classList.contains('remove-item') ||
+    e.target.classList.contains('remove-item')
+  ) {
+    const li = e.target.closest('li');
+    if (li) removeItem(li);
+    return;
   }
+
+  // 2. Find the closest <li> ancestor relative to the clicked target
+  const li = e.target.closest('li');
+
+  // If the click was not inside an <li> (e.g., clicked in the empty space inside the <ul>), exit early
+  if (!li) return;
+
+  // 3. Enable edit mode for the selected <li> item
+  setItemToEdit(li);
 }
 
 function checkIfItemExists(item) {
@@ -123,7 +136,7 @@ function setItemToEdit(item) {
   item.classList.add('edit-mode');
   formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
   formBtn.style.backgroundColor = 'rgba(95, 212, 246, 0.15)';
-  itemInput.value = item.textContent;
+  itemInput.value = item.firstChild.textContent.trim();
 }
 
 function removeItem(item) {
