@@ -435,3 +435,7 @@ input {
 .audio-btn:active {
   transform: scale(0.95);
 }
+
+.note {
+  text-align: center;
+}
