@@ -54,13 +54,23 @@ function onAddItemSubmit(e) {
 }
 
 function addItemToDOM(item) {
-  //Create new list item
+  // Create new list item
   const li = document.createElement('li');
-  li.appendChild(document.createTextNode(item));
+
+  // Create span for text to control text wrapping
+  const textSpan = document.createElement('span');
+  textSpan.textContent = item;
+  textSpan.style.wordBreak = 'break-all';
+  textSpan.style.overflowWrap = 'break-word';
+  textSpan.style.minWidth = '0';
+  textSpan.style.flex = '1';
+
+  li.appendChild(textSpan);
 
   const button = createButton('remove-item btn-link text-red');
   li.appendChild(button);
-  //Append li to list
+
+  // Append li to list
   itemList.appendChild(li);
 }
 
@@ -136,7 +146,11 @@ function setItemToEdit(item) {
   item.classList.add('edit-mode');
   formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
   formBtn.style.backgroundColor = 'rgba(95, 212, 246, 0.15)';
-  itemInput.value = item.firstChild.textContent.trim();
+
+  const textSpan = item.querySelector('span');
+  itemInput.value = textSpan
+    ? textSpan.textContent.trim()
+    : item.firstChild.textContent.trim();
 }
 
 function removeItem(item) {
